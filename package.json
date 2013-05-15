@@ -1,0 +1,9 @@
+{
+  "name": "dico-grec",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
+}

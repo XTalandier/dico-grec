@@ -2031,7 +2031,7 @@ INSERT INTO "dico" VALUES('αποτυγχάνω','échouer, avorter','GF','απ�
 INSERT INTO "dico" VALUES('αποτυπώνω','imprimer ','GF','αποτυπωνω',NULL);
 INSERT INTO "dico" VALUES('αποτυχία','échec','FG','αποτυχiα',NULL);
 INSERT INTO "dico" VALUES('αποτυχία','échec, avortement','GF','αποτυχiα',NULL);
-INSERT INTO "dico" VALUES('αποτυχία\','avortement','GF','αποτυχiα\',NULL);
+INSERT INTO "dico" VALUES('αποτυχία','avortement','GF','αποτυχiα',NULL);
 INSERT INTO "dico" VALUES('απουσία','absence','GF','απουσiα',NULL);
 INSERT INTO "dico" VALUES('απουσία, αμνησία, έλλειψη, κενό','absence','FG','απουσiα, αμνησiα, ελλειψη, κενο',NULL);
 INSERT INTO "dico" VALUES('απουσιάζω','absenter {s''}','FG','απουσιαζω',NULL);
