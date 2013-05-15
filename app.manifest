@@ -1,6 +1,11 @@
 CACHE MANIFEST
-app.js
 index.html
-jquery.js
+
+js/app.js
+js/database.js
+js/jquery.js
 db/dico.db3
-bootstrap/
+db/dump.sql
+bootstrap/css/bootstrap.min.css
+bootstrap/js/bootstrap.min.js
+apple-touch-icon.png
