@@ -1,21 +1,16 @@
 <html><!-- manifest="app.manifest">-->
 <head>
+	<title>Dico Grec/Français</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1,user-scalable=no" name="viewport">
-<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-touch-fullscreen" content="yes" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon.png" />
-<!-- iPad (portrait) -->
-<link rel="apple-touch-startup-image"
-      media="(orientation: portrait)"
-      href="startup-portrait.png">
-<!-- iPad (landscape) -->
-<link rel="apple-touch-startup-image"
-      media="(orientation: landscape)"
-      href="startup-landscape.png">
+
+	<link rel="apple-touch-startup-image" href="startup-landscape.png">
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
@@ -38,47 +33,115 @@
 input, button {
 	font-size: 20px;
 }
+* {
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-text-size-adjust: none;
+}
+#header {
+	width: 100%;
+	height: 50px;
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+	padding-top: 10px;
+}
+.title {
+	text-align: center;
+	color: #fff;
+	text-shadow: #333 1px 1px 4px;
+	font-size: 30px;
+}
+.button-right {
+	height:50px;
+	float: right;
+	margin-bottom: 10px;
+}
+.td-data {
+	-webkit-user-select: text;
+}
 	</style>
 </head>
-<body class="container">
-	<div id="loader">
-		<h1>Chargement en cours ...<br />
-			<span id="lblprogress"></span>
-		</h1>
-			<br />
-			<br />
-			<br />
-		<button class="btn btn-success" onclick="$('#loader').hide();">Close</button>
-	</div>
-	
-	<div class="row">
-		<div class="span12">
-		<form class="form-search" onsubmit="return false;" name="frmsearch">
-			<fieldset>
-				<legend>Rechercher</legend>
-				<input type="text" id="mot" placeholder="Rechercher...." autocapitalize="off" autocorrect="off" />
-				<label class="radio">
-					<input type="radio" name="radsearch" value="?%"> Commence par
-				</label>
-				<label class="radio">
-					<input type="radio" name="radsearch" value="%?%" checked> Contient
-				</label>
-				<button id="btnsearch" class="btn">Rechercher</button>
-		  </fieldset>
-		</form>
-			<table style="width:100%" class="table-bordered table-striped">
-				<thead>
-					<tr>
-						<th>Grec</th>
-						<th>Francais</th>
-					</tr>
-				</thead>
-				<tbody id="tableau"></tbody>
-			</table>
+<body>
+	<div id="header" class="row">
+		<div class="span12 title">Dico grec/français</div>
+		<div class="button-right">
+			<button class="btn btn-inverse" id="btnconfig">Config</button>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var app = new App();
-	</script>
+	<div class="container">
+		<div id="loader">
+			<h1>Chargement en cours ...<br />
+				<span id="lblprogress"></span>
+			</h1>
+				<br />
+				<br />
+				<br />
+			<button class="btn btn-success" onclick="$('#loader').hide();">Close</button>
+		</div>
+		
+		<div class="row">
+			<div class="span12">
+			<form class="form-search" onsubmit="return false;" name="frmsearch">
+				<fieldset>
+					<legend>Rechercher</legend>
+					<input type="text" id="mot" placeholder="Rechercher...." autocapitalize="off" autocorrect="off" />
+					<label class="radio">
+						<input type="radio" name="radsearch" value="?%"> Commence par
+					</label>
+					<label class="radio">
+						<input type="radio" name="radsearch" value="%?%" checked> Contient
+					</label>
+					<button id="btnsearch" class="btn btn-primary">Rechercher</button>
+			  </fieldset>
+			</form>
+				<table style="width:100%" class="table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Grec</th>
+							<th>Francais</th>
+						</tr>
+					</thead>
+					<tbody id="tableau"></tbody>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var app = new App();
+		</script>
+	</div>
+<div class="modal hide fade" id="frmconfig">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="$('#frmconfig').modal('hide');">&times;</button>
+		<h3>Load dump</h3>
+	</div>
+	<div class="modal-body">
+		<span id="db-info"></span>
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Dump file</label>
+				<div class="controls">
+					<select id="cmb-dump"></select>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<label class="checkbox">
+						<input type="checkbox" id="chkclearbefore"> Clear DB Before ?
+					</label>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button onclick="$('#frmconfig').modal('hide');" class="btn">Close</button>
+		<button class="btn btn-primary" id="btnloaddump" onclick="app.loadCustomDump();">Load dump</button>
+	</div>
+</div>
 </body>
 </html>

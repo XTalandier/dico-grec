@@ -9,3 +9,7 @@ db/dump.sql
 bootstrap/css/bootstrap.min.css
 bootstrap/js/bootstrap.min.js
 apple-touch-icon.png
+startup-landscape.png
+
+NERTWORK:
+admin/index.php

@@ -26,10 +26,11 @@ App.prototype.initDB = function() {
 	});
 };
 
-App.prototype.loadDump = function(callback , process) {
+App.prototype.loadDump = function(callback , process , dumpFile) {
+	dumpFile = dumpFile === undefined ? 'db/dump.sql' : dumpFile;
 	var that = this;
 	$('#lblprogress').html('Loading dump...');
-	$.get('db/dump.sql' , function(queries){
+	$.get(dumpFile , function(queries){
 		$('#lblprogress').html('Start executing queries...');
 		query = queries.split('\n');
 		that.loadDump_next(query , 0 , callback , process);
@@ -50,6 +51,7 @@ App.prototype.loadDump_next = function(queries , index , callback , process) {
 
 
 App.prototype.bindEvents = function(app) {
+	var that = this;
 	$('#btnsearch').click(function(){
 		app.search();
 	});
@@ -58,7 +60,51 @@ App.prototype.bindEvents = function(app) {
 			app.search();
 		}
 	});
+	$('#btnconfig').click(function(){
+		App.showLoader();
+		that.db.executeS('SELECT count(*) as nb FROM dico' , function(tx , results){
+			$('#db-info').html('Entries in DB : ' + results.rows.item(0)['nb']);
+			$.get('./admin/index.php?action=list-dump' , function(dumps){
+				dumps = eval('(' + dumps + ')');
+				for(var i = 0 ; i < dumps.length ; i++){
+					$('<option value="' + dumps[i] + '"> ' + dumps[i] + '</option>').appendTo($('#cmb-dump'));
+				}
+				$('#frmconfig').modal();
+			});
+		});
+	});
 };
+
+
+App.prototype.loadCustomDump = function(){
+	var that = this;
+	$('#frmconfig').modal('hide');
+	if($('#chkclearbefore').is(':checked')){
+		$('#lblprogress').html('Clearing db...');
+		this.db.execute('DELETE FROM dico' , function(){
+			that._loadCustomDump();
+		});
+	}else{
+		this._loadCustomDump();
+	}
+}
+
+App.prototype._loadCustomDump = function(){
+	$('#lblprogress').html('Loading dump...');
+	app.loadDump(function(){
+		App.hideLoader();
+	} , function(prct){
+		$('#lblprogress').html(prct)
+	} , 'admin/sql/' + $('#cmb-dump').val());
+}
+
+App.showLoader = function(value){
+	$('#lblprogress').html(value);
+	$('#loader').show();
+}
+App.hideLoader = function(){
+	$('#loader').hide();
+}
 
 App.prototype.search = function() {
 	$('#loader').show();
@@ -76,7 +122,7 @@ App.prototype.search = function() {
 		}else {
 			for (var i=0; i<results.rows.length; i++) {
 				var row = results.rows.item(i);
-				tableau+= '<tr><td>' + row['grec'] + '</td><td>' + row['francais'] + '</td></tr>';
+				tableau+= '<tr><td class="td-data">' + row['grec'] + '</td><td class="td-data">' + row['francais'] + '</td></tr>';
 			}
 		}
 		$('#tableau').html(tableau);
