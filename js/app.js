@@ -28,7 +28,9 @@ App.prototype.initDB = function() {
 
 App.prototype.loadDump = function(callback , process) {
 	var that = this;
+	$('#lblprogress').html('Loading dump...');
 	$.get('db/dump.sql' , function(queries){
+		$('#lblprogress').html('Start executing queries...');
 		query = queries.split('\n');
 		that.loadDump_next(query , 0 , callback , process);
 	});
