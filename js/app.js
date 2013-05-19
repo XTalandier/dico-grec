@@ -61,6 +61,10 @@ App.prototype.bindEvents = function(app) {
 		}
 	});
 	$('#btnconfig').click(function(){
+		if(!navigator.onLine){
+			alert('You must be online');
+			return false;
+		}
 		App.showLoader();
 		that.db.executeS('SELECT count(*) as nb FROM dico' , function(tx , results){
 			$('#db-info').html('Entries in DB : ' + results.rows.item(0)['nb']);
