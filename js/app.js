@@ -19,7 +19,7 @@ App.prototype.initDB = function() {
 		that.loadDump(function(){
 			$('#loader').hide();
 		} , function(prct){
-			document.title = prct;
+			$('#lblprogress').html(prct);
 		});
 	});
 };
