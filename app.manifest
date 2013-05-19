@@ -1,6 +1,6 @@
 CACHE MANIFEST
+CACHE:
 index.html
-
 js/app.js
 js/database.js
 js/jquery.js
@@ -10,6 +10,5 @@ bootstrap/css/bootstrap.min.css
 bootstrap/js/bootstrap.min.js
 apple-touch-icon.png
 startup-landscape.png
-
-NERTWORK:
+NETWORK:
 admin/index.php
