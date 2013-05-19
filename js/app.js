@@ -1,3 +1,5 @@
+var debug = document.location.href.indexOf('localhost') >= 0;
+
 function App(){
 	$('#loader').show();
 	this.db  = null;
@@ -13,7 +15,7 @@ App.prototype.initDB = function() {
 	this.db = new Database('./db/dico.db3');
 	var that = this;
 	this.db.executeS('SELECT count(*) as nb FROM dico' , function(tx , results){
-		console.log(results.rows.item(0)['nb']);
+		debug && console.log(results.rows.item(0)['nb']);
 		$('#loader').hide();
 	} , function(err){
 		that.loadDump(function(){
@@ -65,7 +67,7 @@ App.prototype.search = function() {
 		+ " OR fr LIKE '" + $('input[name=radsearch]:checked').val().replace('?' , word) + "'";
 	var querySelect = 'SELECT * FROM dico' + whereStatement + ' LIMIT 0,30';
     this.db.executeS(querySelect , function(tx, results){
-    	console.log(results);
+    	debug && console.log(results);
 		var tableau = '';
 		if(results.rows.length == 0){
 			tableau+= '<tr><td colspan="2" style="font-size:50px;color:red;text-align:center;">No result</td></tr>';

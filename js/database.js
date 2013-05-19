@@ -9,7 +9,7 @@ Database.prototype.open = function(db3File) {
 		this.db = openDatabase(db3File, "1.0", "My Database" , 2 * 1024 * 1024 * 1024 *1024);
 		return true;
 	} catch(ex) {
-		console.log(ex);
+		debug && console.log(ex);
 		return false;
 	}
 };
@@ -17,7 +17,7 @@ Database.prototype.open = function(db3File) {
 Database.prototype.executeS = function(query , success , error , page) {
 	this.db.transaction(
 	    function (transaction) {
-	    	console.log(query);
+	    	debug && console.log(query);
 	        transaction.executeSql(
 	        	query ,// + " LIMIT " + (page === undefined ? 0 : page) + "," + this.max + ";",
 	        	[],
@@ -39,14 +39,14 @@ Database.prototype.executeS = function(query , success , error , page) {
 Database.prototype.execute = function(query , success , error) {
 	this.db.transaction(
 	    function (transaction) {
-	    	console.log(query);
+	    	debug && console.log(query);
 	        transaction.executeSql(
 	        	query,
 	        	[],
 	        	function(tx , results){
 	       			success(tx.rows);
 	        	},function(tx , err){
-	        		console.log(err.message);
+	        		debug && console.log(err.message);
 	        		if(error !== undefined){
 	        			error(err);
 	        		}else{
