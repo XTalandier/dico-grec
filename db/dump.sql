@@ -17347,5 +17347,7 @@ UPDATE dico SET gr=REPLACE(gr, 'ὁ' , 'ο');
 UPDATE dico SET gr=REPLACE(gr, 'ὀ' , 'ο');
 UPDATE dico SET gr=REPLACE(gr, 'ό' , 'ο');
 UPDATE dico SET gr=REPLACE(gr, 'ὸ' , 'ο');
-UPDATE dico SET gr=REPLACE(gr, 'ό' , 'ο');
+UPDATE dico SET fr=REPLACE(gr, 'é' , 'e');
+UPDATE dico SET fr=REPLACE(gr, 'è' , 'e');
+UPDATE dico SET fr=REPLACE(gr, 'ê' , 'e');
 COMMIT;
